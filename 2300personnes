@@ -1,0 +1,30 @@
+#assemblee synodale
+##The plus operator is very similar to the star operator, except that the character or subexpression followed by a "+" sign has to be repeated at least one time. Here follows the solution to our exercise with the plus quantifier: 
+
+Solution with the plus quantifier:
+r"^[0-9]+ "
+99
+##et's assume you want to recognize the last lines of addresses on envelopes in Switzerland. 
+These lines usually contain a four digits long post code followed by a blank and a city name. 
+Using + or * are too unspecific for our purpose and the following expression seems to be too clumsy:
+r"^[0-9][0-9][0-9][0-9] [A-Za-z]+"
+##Fortunately, there is an alternative available:
+r"^[0-9]{4} [A-Za-z]*"
+###et's assume that there is no city name in Switzerland, which consists of less than 3 letters, at least 3 letters. 
+We can denote this by [A-Za-z]{3,}.
+###note the comma there which will allow for more than the three letters in the swiss city names
+###Now we have to recognize lines with German post code (5 digits) lines as well, i.e. 
+the post code can now consist of either four or five digits:
+r"^[0-9]{4,5} [A-Z][a-z]{2,}"
+###The general syntax is {from, to}: this means that the expression has to appear at least 
+"from" times and not more than "to" times. {, to} is an abbreviated spelling for {0,to} and {from,} 
+is an abbreviation for "at least from times but no upper limit"
+###We can group a part of a regular expression by surrounding it with parenthesis (round brackets). 
+This way we can apply operators to the complete group instead of a single character.
+##cest deja notre eglise qui est present par cette regle la
+comment les eveques prient l'esprit saint
+cest demander au seigner d'exercer le x a notre facon
+###Backreferences match the same text as previously matched by a capturing group. ...
+###Parenthesis (round brackets, braces) not only group subexpressions but they create back references as well. 
+The part of the string matched by the grouped part of the regular expression, i.e. the 
+subexpression in parenthesis, is stored in a back reference.
